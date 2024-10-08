@@ -15,59 +15,56 @@ const s_balance = document.getElementById("s_balance");
 function formValidate() {
   if (amount.value < 0) {
     alert("Input Fields Cannot Be Empty😒");
-  }else{
+  } else {
     getData();
-    
-  add.setAttribute("data-modal-target","crud-modal");
-  add.setAttribute("data-modal-toggle","crud-modal");
-  add.click();
-  (() => {
-    // add.setAttribute("data-modal-target", "");
-    // add.setAttribute("data-modal-toggle", "");
-  })();
-}
+
+    add.setAttribute("data-modal-target", "crud-modal");
+    add.setAttribute("data-modal-toggle", "crud-modal");
+    add.click();
+    (() => {
+      // add.setAttribute("data-modal-target", "");
+      // add.setAttribute("data-modal-toggle", "");
+    })();
+  }
   //resetForm();
-};
+}
 
 addform.addEventListener("submit", (e) => {
   e.preventDefault();
   //console.log("super da kana");
-  
+
   formValidate();
 });
 
 let data = [{}];
 
-const getData= () =>{
+const getData = () => {
+  data.push({
+    category: category.value,
+    description: description.value,
+    amount: amount.value,
+  });
 
-    data.push({
-      category:category.value,
-      description:description.value,
-      amount:amount.value
-    })
+  localStorage.setItem("data", JSON.stringify(data));
 
-    localStorage.setItem("data",JSON.stringify(data));
+  //console.log(data);
 
-    //console.log(data);
+  createFinance();
+};
 
-    createFinance();
-}
+const createFinance = (clicked = "all") => {
+  finance.innerHTML = "";
+  const bb = [];
+  const cc = [];
+  data.map((ele, y) => {
+    if (ele.category === "income") {
+      bb.push(parseInt(ele.amount));
+    } else if (ele.category === "expense") {
+      cc.push(parseInt(ele.amount));
+    }
 
-const createFinance = (clicked='all') => {
-    finance.innerHTML = "";
-const bb = [];
-const cc = [];
-    data.map((ele, y)=>{
-      if(ele.category === 'income'){
-        bb.push(parseInt(ele.amount))
-      }else if(ele.category === 'expense'){
-        cc.push(parseInt(ele.amount))
-      }
-
-      if(ele.category === clicked){
-        return(
-         
-            finance.innerHTML += `
+    if (ele.category === clicked) {
+      return (finance.innerHTML += `
             <tr id=${y} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${ele.category}</th>
               <td class="px-6 py-4">${ele.description}</td>
@@ -80,13 +77,9 @@ edit_note
 delete_forever
 </span>
                </td>
-          </tr>     `
-          
-        );
-      }else if(clicked === 'all'){
-        return(
-         
-            finance.innerHTML += `
+          </tr>     `);
+    } else if (clicked === "all") {
+      return (finance.innerHTML += `
             <tr id=${y} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${ele.category}</th>
               <td class="px-6 py-4">${ele.description}</td>
@@ -99,66 +92,60 @@ edit_note
 delete_forever
 </span>
                </td>
-          </tr>     `
-          
-        );
-      }
+          </tr>     `);
+    }
   });
 
   let sum = 0;
   let c_sum = 0;
   let c_bal = 0;
-  bb.forEach(x => {
-     sum += x;
+  bb.forEach((x) => {
+    sum += x;
   });
-  cc.forEach(y => {
+  cc.forEach((y) => {
     c_sum += y;
- });
+  });
   c_bal = sum - c_sum;
-  s_income.innerHTML=`Income: &#X20B9; ${sum}`;
-  s_expense.innerHTML=`Expense: &#X20B9; ${c_sum}`;
-  s_balance.innerHTML=`Balance: &#X20B9; ${c_bal}`;
-    resetForm();
+  s_income.innerHTML = `Income: &#X20B9; ${sum}`;
+  s_expense.innerHTML = `Expense: &#X20B9; ${c_sum}`;
+  s_balance.innerHTML = `Balance: &#X20B9; ${c_bal}`;
+  resetForm();
 };
 
-const resetForm =() =>{
+const resetForm = () => {
   category.value = "";
-  description.value ="";
+  description.value = "";
   amount.value = "";
 };
-(()=>{
-data = JSON.parse(localStorage.getItem("data")) || [];
-//console.log("reset",data);
-createFinance();
+(() => {
+  data = JSON.parse(localStorage.getItem("data")) || [];
+  //console.log("reset",data);
+  createFinance();
+})();
 
-}) ();
-
-
-const editFinance = (e) =>{
+const editFinance = (e) => {
   let result = e.parentElement.parentElement;
-   category.value = result.children[0].innerHTML;
-   description.value = result.children[1].innerHTML;
-   amount.value = result.children[2].innerHTML;
+  category.value = result.children[0].innerHTML;
+  description.value = result.children[1].innerHTML;
+  amount.value = result.children[2].innerHTML;
 
-// const varid = e.parentElement.parentElement.id;
-//   console.log(data[varid]);
-//    data.push({
-//     category:category.value,
-//     description:description.value,
-//     amount:amount.value
-//   })
-if(e===true){
-deleteFinance(e);
-}
-
-   
-}
+  // const varid = e.parentElement.parentElement.id;
+  //   console.log(data[varid]);
+  //    data.push({
+  //     category:category.value,
+  //     description:description.value,
+  //     amount:amount.value
+  //   })
+  if (e === true) {
+    deleteFinance(e);
+  }
+};
 
 // delete function for created TODO's
 
-const deleteFinance = (e)=>{
-e.parentElement.parentElement.remove();
-data.splice(e.parentElement.parentElement.id,1);
-localStorage.setItem("data",JSON.stringify(data));
-//console.log(data);
-}
+const deleteFinance = (e) => {
+  e.parentElement.parentElement.remove();
+  data.splice(e.parentElement.parentElement.id, 1);
+  localStorage.setItem("data", JSON.stringify(data));
+  //console.log(data);
+};
