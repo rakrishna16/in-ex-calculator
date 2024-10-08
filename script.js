@@ -11,19 +11,21 @@ const msg = document.getElementById("msg");
 const s_income = document.getElementById("s_income");
 const s_expense = document.getElementById("s_expense");
 const s_balance = document.getElementById("s_balance");
+//const s_modal = document.getElementById("crud-modal");
 
 function formValidate() {
-  if (amount.value < 0) {
+  if (
+    category.value === "" ||
+    description.value === "" ||
+    amount.value === ""
+  ) {
     alert("Input Fields Cannot Be Empty😒");
   } else {
     getData();
-
-    add.setAttribute("data-modal-target", "crud-modal");
     add.setAttribute("data-modal-toggle", "crud-modal");
     add.click();
     (() => {
-      // add.setAttribute("data-modal-target", "");
-      // add.setAttribute("data-modal-toggle", "");
+     add.setAttribute("data-modal-toggle", "");
     })();
   }
   //resetForm();
@@ -31,8 +33,6 @@ function formValidate() {
 
 addform.addEventListener("submit", (e) => {
   e.preventDefault();
-  //console.log("super da kana");
-
   formValidate();
 });
 
@@ -44,11 +44,7 @@ const getData = () => {
     description: description.value,
     amount: amount.value,
   });
-
   localStorage.setItem("data", JSON.stringify(data));
-
-  //console.log(data);
-
   createFinance();
 };
 
@@ -68,8 +64,8 @@ const createFinance = (clicked = "all") => {
             <tr id=${y} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${ele.category}</th>
               <td class="px-6 py-4">${ele.description}</td>
-              <td class="px-6 py-4">&#X20B9; ${ele.amount}</td>
-              <td class="px-6 py-4">  
+              <td class="px-6 py-4">${ele.amount}</td>
+              <td class="px-6 py-4 flex">  
               <span onclick="editFinance(this);" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="material-symbols-outlined cursor-pointer m-2 text-green-500">
 edit_note
 </span>           
@@ -84,7 +80,7 @@ delete_forever
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${ele.category}</th>
               <td class="px-6 py-4">${ele.description}</td>
               <td class="px-6 py-4">${ele.amount}</td>
-              <td class="px-6 py-4">  
+              <td class="px-6 py-4 flex">  
               <span onclick="editFinance(this);" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="material-symbols-outlined cursor-pointer m-2 text-green-500">
 edit_note
 </span>           
@@ -119,7 +115,6 @@ const resetForm = () => {
 };
 (() => {
   data = JSON.parse(localStorage.getItem("data")) || [];
-  //console.log("reset",data);
   createFinance();
 })();
 
@@ -128,17 +123,7 @@ const editFinance = (e) => {
   category.value = result.children[0].innerHTML;
   description.value = result.children[1].innerHTML;
   amount.value = result.children[2].innerHTML;
-
-  // const varid = e.parentElement.parentElement.id;
-  //   console.log(data[varid]);
-  //    data.push({
-  //     category:category.value,
-  //     description:description.value,
-  //     amount:amount.value
-  //   })
-  if (e === true) {
     deleteFinance(e);
-  }
 };
 
 // delete function for created TODO's

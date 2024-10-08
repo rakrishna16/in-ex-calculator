@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Income Expense Calculator</title>
-  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -38,6 +28,15 @@
       },
     };
   </script>
+  <title>Income Expense Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
   <link rel="shortcut icon" href="assets/coin-blue-icon.png" type="image/x-icon">
 </head>
 
@@ -45,7 +44,6 @@
   <section class="text-center font-bold text-lg my-12">
     <div class="mx-5 w-auto">
       <h1 class="mb-10 text-2xl font-bold font-Inter">Income Expense Calculator</h1>
-
       <div
         class="block max-w-sm sm:max-w-xl p-6 mx-auto bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <span id="s_income"
@@ -65,10 +63,14 @@
     <div class="w-full mx-auto max-w-screen-xl p-4 text-center">
       <!-- Modal toggle -->
       <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-        class="block text-white mt-10 mb-5 mx-auto bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="block text-white mt-10 mb-10 mx-auto bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button">
         Add New
       </button>
+      <!-- <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block mt-10 mb-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        Add New
+      </button> -->
+      
 
       <ul
         class="flex items-center w-full sm:w-1/2 text-sm font-medium my-5 mx-auto text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -111,7 +113,7 @@
                 Discription
               </th>
               <th scope="col" class="px-6 py-3">
-                Amount
+                Amount &#X20B9;
               </th>
               <th scope="col" class="px-6 py-3">
                 Action
@@ -119,12 +121,9 @@
             </tr>
           </thead>
           <tbody id="finance">
-
           </tbody>
         </table>
       </div>
-
-
       <!-- Main modal -->
       <div id="crud-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -168,18 +167,18 @@
                     Note</label>
                   <input type="text" name="name" id="note"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type a note" required="">
+                    placeholder="Type a note" required>
                 </div>
                 <div class="col-span-2">
                   <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter
                     Amount</label>
                   <input type="number" min="0" name="price" id="amount"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="&#X20B9; 0" required="">
+                    placeholder="&#X20B9; 0" required>
                 </div>
               </div>
               <button type="submit" id="add"
-                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-toggle="crud-modal">
                 Add
               </button>
             </form>
@@ -198,7 +197,6 @@
     </span>
   </div>
   <script src="/script.js"></script>
-  <script src="/tailwind.config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </footer>
 
